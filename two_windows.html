@@ -38,28 +38,38 @@
           forms[i].addEventListener("submit", function (e) {
             e.preventDefault();
             var form = e.target;
-            var src = form[0].value;
-            var iframe = form.lastElementChild;
+            var src = form.querySelector("input[type=text]").value;
+            var iframe = form.querySelector("iframe");
             iframe.src = src;
             return false;
           });
         }
+        var url = new URL(window.location.href);
+        ["left", "right"].forEach(function (side) {
+          var param = url.searchParams.get(side);
+          if (param !== null) {
+            let form = document.querySelector("." + side + " > form");
+            form.querySelector("input[type=text]").value = param;
+            // click the submit button to trigger the submit event
+            form.querySelector("input[type=submit]").click();
+          }
+        });
       });
     </script>
   </head>
   <body>
     <div class="left">
-      <form id="left-form">
+      <form>
         <input type="text" placeholder="What URL do you want to show on this page?"/>
         <input type="submit" value="Go"/>
         <iframe src="https://wikipedia.org" frameborder="0" scrolling="yes"></iframe>
       </form>
     </div>
     <div class="right">
-      <form id="right-form">
-        <input id="right-input" type="text" placeholder="What URL do you want to show on this page?">
-        <input id="right-button" type="submit" value="Go">
-        <iframe id="right-iframe" src="https://wikipedia.org" frameborder="0" scrolling="yes"/></iframe>
+      <form>
+        <input type="text" placeholder="What URL do you want to show on this page?">
+        <input type="submit" value="Go">
+        <iframe src="https://wikipedia.org" frameborder="0" scrolling="yes"/></iframe>
       </form>
     </div>
   </body>
