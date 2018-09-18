@@ -21,15 +21,28 @@
         width: 90%;
       }
       div {
-        height: 100%;
-        width: 49%;
         float: left;
       }
-      div.left {
-        margin-right: 1%;
+      @media (max-aspect-ratio: 1/1) {
+        div {
+          height: 49%;
+          width: 100%;
+        }
+        div.left {
+          margin-bottom: 1%;
+        }
       }
-      div.right {
-        width: 50%;
+      @media (min-aspect-ratio: 1/1) {
+        div {
+          height: 100%;
+          width: 49%;
+        }
+        div.left {
+          margin-right: 1%;
+        }
+        div.right {
+          width: 50%;
+        }
       }
     </style>
     <script>
